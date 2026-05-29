@@ -35,7 +35,7 @@ public class VarargsTest {
     }
 
         void main() {
-        System.out.println("메인메소드 시작");
+        System.out.println("메인메소드 시작 ");
         sum(10,20);
         sum(10,20,30);
         sum(10,20,30,40);
