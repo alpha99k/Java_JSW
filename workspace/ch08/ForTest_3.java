@@ -5,6 +5,6 @@ public class ForTest_3 {
         for(int i = 10; i >= 1; i-- ){
             System.out.println(i);
         }
-        System.out.println("Launch");
+        System.out.println("Launch ");
     }
 }
