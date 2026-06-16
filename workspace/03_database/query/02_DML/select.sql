@@ -1,70 +1,112 @@
--- 전체 회원의 이름과 가입일 조회
-SELECT name, created_at
-    FROM member;
+-- 회원이름 조회
+SELECT name, email, CONCAT(name,' (', email, ')') AS member_info
+FROM MEMBER;
 
--- 전체 회원의 모든 컬럼 조회
-SELECT *
-    FROM member;
 
--- 별칭을 사용하여 컬럼명을 가독성 있게 표현
-SELECT name, created_at AS 가입일
-    FROM member;
+SELECT email, LENGTH(email) AS email_Length
+FROM MEMBER;
 
--- 게시글을 작성한 회원 ID 목록을 중복 없이 조회
-SELECT DISTINCT member_id
-    FROM post;
+SELECT content, REPLACE(content,'안녕하세요', 'HI!') AS replaced_content
+FROM POST
+WHERE content LIKE '%안녕하세요%';
 
-SELECT member_id
-    FROM post;
 
--- 특정 이메일을 사용하는 회원 정보 조회
-SELECT id, name
-    FROM member
-    WHERE email = 'haru@gmail.com';
+SELECT title, CONCAT(SUBSTRING(title, 1, 10), '...')  AS preview
+FROM post;
 
--- 제목에 '게시글'이라는 단어가 들어간 모든 글 조회
-SELECT id, title
-    FROM post
-    WHERE title LIKE '%게시글%';
+SELECT email, LOWER(email) AS email_Lower, UPPER(email) AS email_Upper
+FROM MEMBER;
 
--- 이름이 '하'로 시작해서 두글자인 모든 회원 조회
-SELECT id, name
-    FROM member
-    WHERE name LIKE '하_';
+-- 이메일 앞뒤 공백 제거
+SELECT email, TRIM(email) AS trimmed_email
+FROM MEMBER;
 
--- member_id가 1번, 3번, 5번인 회원이 작성한 게시글만 선별하여 조회
-SELECT id, title, member_id
-    FROM post
-    WHERE member_id IN (1, 3, 5);
+SELECT NOW() AS current_datetime;
 
--- 2026년 6월 1일부터 2026년 6월 10일 사이에 가입한 회원 조회
-SELECT id AS 아이디, name AS 이름, created_at AS 가입일
-    FROM member
-    WHERE created_at BETWEEN '2026-06-01' AND '2026-06-20 23:59:59';
+SELECT id , title, DATE_FORMAT(created_at, '%Y년 %m월 %d일  %a %H시 %i분 %s초') AS write_date
+ FROM post;
 
--- 전화번호 컬럼 값이 입력되지 않고 비어있는(NULL) 회원 조회
-SELECT id, name, phone
-    FROM member
-    WHERE phone IS NULL ;
+SELECT CURDATE() AS curr_date;
 
--- 가장 최근에 가입한 회원 순서로 정렬하여 조회
-SELECT id, email, name, created_at
-    FROM member
-    ORDER BY created_at DESC, name ASC;
+SELECT id,title,created_at
+FROM post
+WHERE created_at >= CURDATE();
 
--- 다중 컬럼 정렬: 이름 오름차순 정렬 후, 동일한 이름은 가입일 내림차순으로 2차 정렬
-SELECT id, name, created_at
-    FROM member
-    ORDER BY name ASC, created_at DESC;
+SELECT id, name, created_at, CURDATE(),DATE_SUB(NOW(), INTERVAL 7 DAY) AS before_7days
+FROM MEMBER
+WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY);
 
--- 가장 최근에 작성된 게시글 5개만 조회
-SELECT id, title, created_at
-    FROM post
-    ORDER BY created_at DESC
-    LIMIT 2;
 
--- 페이징 처리: 한 페이지에 10건씩, 2페이지 조회 (11번째~20번째 행)
-SELECT id, title, created_at
-    FROM post
-    ORDER BY created_at DESC
-    LIMIT 2, 2;
+SELECT id, name, created_at, CURDATE(),DATE_SUB(NOW(), INTERVAL 7 DAY) AS before_1month
+FROM MEMBER
+WHERE created_at <= DATE_SUB(NOW(), INTERVAL 1 MONTH);
+
+
+SELECT name, created_at, DATEDIFF(CURDATE(),created_at ) AS days_since_join
+FROM MEMBER;
+
+-- 모든 회원수 조회
+SELECT count(*)
+FROM MEMBER;
+
+-- 모든 게시글수 조회
+SELECT count(*)
+FROM post;
+
+-- id=3인 회원의 모든 게시글 조회수 조회
+SELECT member_id, view_count
+FROM post 
+WHERE member_id = 3;
+
+-- id=3인 회원의 총 게시글 수 조회
+SELECT member_id, COUNT(*) AS total_count, SUM(view_count) AS total_views, AVG(view_count) AS avg_views, MIN(view_count) AS min_views, MAX(view_count) AS max_views
+FROM post 
+WHERE member_id = 3;
+
+-- 전화번호가 NULL인 회원은 '미등록'으로 표시하여 조회
+SELECT name, IFNULL(phone,'미등록') AS phone
+FROM member;
+
+-- 전화번호가 NULL이면 이메일을, 이메일도 NULL 이면 '연락처 없음' 으로 조회
+SELECT name, IFNULL(phone, IFNULL(email,'연락처없음')) AS contact
+FROM member;
+
+SELECT name, IF(phone IS NULL ,IF(email IS NULL,'연락처없음',email),phone) AS phone_status
+FROM member;
+
+-- 전화번호 등록 여부에 따라서 상태를 다르게 표시
+SELECT name, IF(phone IS NULL , '연락처없음','연락처등록') AS phone_status
+FROM member;
+
+-- 가입 연도가 1년이 넘었으면 우수회원, 한달~ 일반 회원, -> 신규회원 
+SELECT name, created_at,
+CASE
+	WHEN created_at < DATE_SUB(NOW(), INTERVAL 1 YEAR) THEN '우수회원'
+	WHEN created_at < DATE_SUB(NOW(), INTERVAL 1 MONTH) THEN '일반회원'
+	ELSE '신규회원'
+END AS member_grade
+FROM member
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
