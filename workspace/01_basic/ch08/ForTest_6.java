@@ -1,6 +1,6 @@
 package ch08;
 
-public class 구ForTest_6 {
+public class ForTest_6 {
     static void main(String[] args) {
         // 1~ 9단
         for(int i = 1; i < 10; i++){

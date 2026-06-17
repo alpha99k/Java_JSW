@@ -2,7 +2,7 @@ package ch12.animal;
 
 public class Test {
     static void main(String[] args) {
-        Dog a = new Dog();
+        ch12.animal.Dog a = new ch12.animal.Dog();
 //        Animals paul = new Dog();
 //        paul.eat();     //부모에게 물려받은 메서드
 //        paul.bark();    //추가한 메서드
@@ -11,11 +11,11 @@ public class Test {
 //        Notebook book = new Notebook();
 //        animalCare(book);
 
-        Cat c = new Cat();
+        ch12.animal.Cat c = new ch12.animal.Cat();
         animalCare(c);
     }
 
-    static void animalCare(Animals a){
+    static void animalCare(ch12.animal.Animals a){
         a.eat();
         a.move();
         a.sleep();

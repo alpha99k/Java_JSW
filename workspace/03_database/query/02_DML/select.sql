@@ -87,6 +87,9 @@ CASE
 END AS member_grade
 FROM member
 
+UPDATE id, title, content
+FROM post
+
 
 
 
