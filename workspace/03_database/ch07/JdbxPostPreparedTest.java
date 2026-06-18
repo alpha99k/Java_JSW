@@ -1,11 +1,19 @@
 package ch07;
 
 import java.sql.*;
+import java.util.ResourceBundle;
 
 public class JdbxPostPreparedTest {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/board_db?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
-    private static final String DB_USER = "user1";
-    private static final String DB_PASSWORD = "1111";
+//    private static final String DB_URL = "jdbc:mysql://localhost:3306/board_db?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
+//    private static final String DB_USER = "user1";
+//    private static final String DB_PASSWORD = "1111";
+
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("hikari");
+    private static final String DB_URL = bundle.getString("jdbcUrl");
+    private static final String DB_USER = bundle.getString("username");
+    private static final String DB_PASSWORD = bundle.getString("password");
+
+
 
     public static void main(String[] args){
 //        findAll();
