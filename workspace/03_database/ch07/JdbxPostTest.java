@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class jdbcPostTest {
+public class JdbxPostTest {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/board_db?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
     private static final String DB_USER = "user1";
     private static final String DB_PASSWORD = "1111";
@@ -18,6 +18,7 @@ public class jdbcPostTest {
         findAll();
         delete(10);
         findAll();
+        deleteAll(3);
     }
 
     // 등록(C)
@@ -50,7 +51,7 @@ public class jdbcPostTest {
 
     // 목록 조회(R)
     static void findAll(){
-
+        String sql = "SELECT id, title, viwe_count AS viewCount, created_at AS createdAt From post";
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -70,9 +71,10 @@ public class jdbcPostTest {
                 int id = rs.getInt("id");
                 int member_id = rs.getInt("member_id");
                 String title = rs.getString("title");
-                String content = rs.getString("content");
+                int viewCount = rs.getInt("view_count");
+                String created_at = rs.getString("created_at");
 
-                System.out.println("ID: " + id + "\t | 회원아이디: " + member_id + "\t | 제목: " + title + " |\t 내용: " + content);
+                System.out.println("ID: " + id + "\t | 회원아이디: " + member_id + "\t | 제목: " + title +"\t | 생성일: " + created_at + "\t | 조회수: " + viewCount);
             }
 
         }catch(Exception e){ // 플랜 B
@@ -102,20 +104,18 @@ public class jdbcPostTest {
 
             // 3. SQL 실행(SELECT)
             // 4. 결과 수신(ResultSet 객체 생성)
-            rs = stmt.executeQuery("SELECT id, member_id, title, content \n" +
+            rs = stmt.executeQuery("SELECT id, member_id, title, content, view_count \n" +
                     "FROM post\n" +
                     "WHERE id = "+id+"");
             if (rs.next()) {
-                // 이제 커서가 첫 번째 행을 가리키므로 데이터를 꺼낼 수 있습니다.
-                int searchId = rs.getInt("id");
                 int memberId = rs.getInt("member_id");
                 String title = rs.getString("title");
                 String content = rs.getString("content");
+                int viewCount = rs.getInt("view_count");
 
-                System.out.println(searchId + " 조회결과 \n ---------------------------------------\n" + "ID : " + id +
-                        " | 멤버아이디 : " + memberId + " | 제목 : " + title + "| 내용 : " + content);
+                System.out.println( " \t\t\t\t" +  id + "번 조회결과 \n ---------------------------------------\n" + "ID : " + id +
+                        " | 멤버아이디 : " + memberId + " | 조회수 : " + viewCount +" | 제목 : " + title + " | 내용 : " + content);
             } else {
-                // 만약 입력한 id에 해당하는 글이 없을 경우의 예외 처리
                 System.out.println(id + "번 게시글을 찾을 수 없습니다.");
             }
         }catch(Exception e){ // 플랜 B
@@ -161,6 +161,7 @@ public class jdbcPostTest {
 
     // 삭제(D)
     static void delete(int id){
+        String sql = "DELETE FROM post WHERE id ="+id+"";
         Connection conn = null;
         Statement stmt = null;
         try{ // 플랜 A
@@ -171,8 +172,9 @@ public class jdbcPostTest {
             stmt = conn.createStatement();
 
             // 3. SQL 실행
-            stmt.executeUpdate("DELETE FROM post\n" +
-                    "    WHERE id = "+id+";");
+            stmt.executeUpdate(sql);
+
+            System.out.println(id + "번 게시물 삭제 완료 ");
 
         }catch(Exception e){ // 플랜 B
             System.out.println("에러 발생: " + e.getMessage());
@@ -184,5 +186,31 @@ public class jdbcPostTest {
         }
 
     }
-//
+
+    //지정한 회원의 모든 게시글 삭제
+    static void deleteAll(int id){
+        String sql = "DELETE FROM post WHERE member_id = "+id+"";
+        Connection conn = null;
+        Statement stmt = null;
+        try{ // 플랜 A
+            // 1. 데이터베이스 연결(Connection 객체 생성)
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+            // 2. SQL 실행 객체 생성(Statement 객체 생성)
+            stmt = conn.createStatement();
+
+            // 3. SQL 실행
+            stmt.executeUpdate(sql);
+
+            System.out.println(id + "번 회원 게시물전체 삭제 완료 ");
+
+        }catch(Exception e){ // 플랜 B
+            System.out.println("에러 발생: " + e.getMessage());
+            e.printStackTrace();
+        }finally{
+            // 5. 생성된 리소스를 생성의 역순으로 해제
+            try{ if(stmt != null) stmt.close(); } catch (Exception e){ }
+            try{ if(conn != null) conn.close(); } catch (Exception e){ }
+        }
+    }
 }
