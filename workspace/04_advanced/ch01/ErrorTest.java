@@ -1,3 +1,5 @@
+package ch01;
+
 public class ErrorTest {
     static void main(String[] args) {
 

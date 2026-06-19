@@ -1,7 +1,7 @@
 package ch07;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+//import com.zaxxer.hikari.HikariConfig;
+//import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 import java.sql.*;
 
@@ -10,8 +10,8 @@ public class ConnectionPoolTest {
     private static DataSource dataSource;
 
     static {
-        HikariConfig config = new HikariConfig("/hikari.properties");
-        dataSource = new HikariDataSource(config);
+//        HikariConfig config = new HikariConfig("/hikari.properties");
+//        dataSource = new HikariDataSource(config);
     }
 
     public static void main(String[] args){
@@ -28,7 +28,7 @@ public class ConnectionPoolTest {
         login("haru@gmail.com' or '1' = '1", "123");
 
         if(dataSource != null){
-            ((HikariDataSource)dataSource).close();
+//            ((HikariDataSource)dataSource).close();
         }
     }
 

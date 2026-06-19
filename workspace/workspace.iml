@@ -7,10 +7,9 @@
       <sourceFolder url="file://$MODULE_DIR$/02_OOP" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/03_database" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/04_advanced" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/exam" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/homework" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
