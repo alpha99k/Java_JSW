@@ -90,6 +90,8 @@ FROM member
 UPDATE id, title, content
 FROM post
 
+-- 로그인 체크
+SELECT * FROM MEMBER WHERE email = 'haru@gmail.com' AND password = 'pwd123';
 
 
 
