@@ -80,20 +80,20 @@ public class MyArray {
 
     @Override
     public String toString(){
-        String str = "[ ";
+        StringBuffer str = new StringBuffer("[ ");
 
         if(count > 0) {
-            str += data[0];
+            str.append(data[0]);
         }
 
         for(int i = 1; i < count; i++){
-            str +=  ", " + data[i];
+            str.append(", ").append(data[i]);
 
 
         }
 
-        str += " ]";
-        return str;
+        str.append(" ]");
+        return str.toString();
     }
 
 
