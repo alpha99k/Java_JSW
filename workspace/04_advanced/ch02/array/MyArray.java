@@ -36,7 +36,6 @@ public class MyArray {
     }
 
 
-
     /**
      * 초기 배열의 크기를 지정한 size로 생성한다.
      * @param size 배열의 초기 크기
@@ -45,15 +44,16 @@ public class MyArray {
         this.data = new Object[size];
     }
 
+
     /**
      * 배열의 마지막 위치에 지정한 elem 를 추가한다.
      * @param elem 배열에 추가할 요소
      */
-
     public void append(Object elem){
 
         append(count, elem);
     }
+
 
     /**
      * 배열의 원하는 위치에 지정한 elem 를 추가한다.
@@ -62,13 +62,24 @@ public class MyArray {
      */
     public void append(int index, Object elem){
 
-        if(count >= data.length){   //내부 배열의 공간이 다 찼을 경우 예외 발생
-            throw new ArrayIndexOutOfBoundsException("더 이상 추가할 수 없습니다.");
-        } else if(index < 0){
+        //예외처리
+        if(index < 0){
             throw new ArrayIndexOutOfBoundsException(index + " < " + 0);
         } else if(index > count){
             throw new ArrayIndexOutOfBoundsException(index + " >= " + count);
         }
+
+
+
+        if(count >= data.length) {   //내부 배열의 공간이 다 찼을 경우 배열의 크기를 늘린다.(1.5배)
+            Object[] temp = new Object[data.length + data.length / 2];
+            for (int i = 0; i < data.length; i++) {
+                temp[i] = data[i];
+            }
+            System.out.println("ArrSize : " + data.length + " ----> ArrSize : " + temp.length);
+            data = temp;
+        }
+
 
         // 인덱스부터 끝까지 하나씩 뒤로 미는 작업
         System.arraycopy(data, index, data, index+1,count-index);
@@ -76,6 +87,7 @@ public class MyArray {
         count++;
 
     }
+
 
     /**
      * 지정한 index의 요소를 삭제한다.
@@ -94,6 +106,8 @@ public class MyArray {
         data[count] = null;
     }
 
+
+
     /**
      *  지정한 위치의 데이터를 반환한다.
      * @param index 반환할 데이터의 위치
@@ -110,6 +124,14 @@ public class MyArray {
         return data[index];
     }
 
+    /**
+     * 배열에 실제적으로 들어있는 요소의 갯수 출력
+     * @return 실질적으로 존재하는 요소의 갯수
+     */
+    public Object size(){
+        return this.count;
+    }
+
 
     @Override
     public String toString(){
@@ -118,13 +140,9 @@ public class MyArray {
         if(count > 0) {
             str.append(data[0]);
         }
-
         for(int i = 1; i < count; i++){
             str.append(", ").append(data[i]);
-
-
         }
-
         str.append(" ]");
         return str.toString();
     }
