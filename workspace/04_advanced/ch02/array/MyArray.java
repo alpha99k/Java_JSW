@@ -67,10 +67,33 @@ public class MyArray {
 
     }
 
+    /**
+     * 지정한 index의 요소를 삭제한다.
+     * @param index 삭제할 요소 인덱스
+     */
+    public void delete(int index){
+        System.arraycopy(data, index+1, data, index,count-index-1);
+        count--;
+        data[count] = null;
+    }
+
 
     @Override
     public String toString(){
-        return  Arrays.toString(data);
+        String str = "[ ";
+
+        if(count > 0) {
+            str += data[0];
+        }
+
+        for(int i = 1; i < count; i++){
+            str +=  ", " + data[i];
+
+
+        }
+
+        str += " ]";
+        return str;
     }
 
 
