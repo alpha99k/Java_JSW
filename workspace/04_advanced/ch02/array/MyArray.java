@@ -51,6 +51,7 @@ public class MyArray {
      */
 
     public void append(Object elem){
+
         append(count, elem);
     }
 
@@ -60,6 +61,15 @@ public class MyArray {
      * @param elem 삽입할 요소
      */
     public void append(int index, Object elem){
+
+        if(count >= data.length){   //내부 배열의 공간이 다 찼을 경우 예외 발생
+            throw new ArrayIndexOutOfBoundsException("더 이상 추가할 수 없습니다.");
+        } else if(index < 0){
+            throw new ArrayIndexOutOfBoundsException(index + " < " + 0);
+        } else if(index > count){
+            throw new ArrayIndexOutOfBoundsException(index + " >= " + count);
+        }
+
         // 인덱스부터 끝까지 하나씩 뒤로 미는 작업
         System.arraycopy(data, index, data, index+1,count-index);
         data[index] = elem;
@@ -72,16 +82,39 @@ public class MyArray {
      * @param index 삭제할 요소 인덱스
      */
     public void delete(int index){
+
+        if(index >= count){
+            throw new ArrayIndexOutOfBoundsException(index + " >= " + count);
+        } else if(index < 0){
+            throw new ArrayIndexOutOfBoundsException(index + " < " + 0);
+        }
+
         System.arraycopy(data, index+1, data, index,count-index-1);
         count--;
         data[count] = null;
     }
 
+    /**
+     *  지정한 위치의 데이터를 반환한다.
+     * @param index 반환할 데이터의 위치
+     * @return 지정한 위치의 데이터
+     */
+    public Object getElem(int index){
+
+        if(index >= count){
+            throw new ArrayIndexOutOfBoundsException(index + " >= " + count);
+        } else if(index < 0){
+            throw new ArrayIndexOutOfBoundsException(index + " < " + 0);
+        }
+
+        return data[index];
+    }
+
 
     @Override
     public String toString(){
-        StringBuffer str = new StringBuffer("[ ");
-
+//        StringBuffer str = new StringBuffer("[ ");    //멀티스레드 환경에서 사용
+        StringBuilder str = new StringBuilder("[ ");    //싱글스레드 환경에서 사용
         if(count > 0) {
             str.append(data[0]);
         }
