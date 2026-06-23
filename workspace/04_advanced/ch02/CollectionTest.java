@@ -1,10 +1,8 @@
 package ch02;
 
-import com.sun.source.tree.Tree;
-
 import java.util.*;
 
-public class ArrayListTest {
+public class CollectionTest {
 
     void main(String[] args) {
 
