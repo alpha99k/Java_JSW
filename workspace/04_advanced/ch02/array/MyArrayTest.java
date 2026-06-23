@@ -8,27 +8,27 @@ public class MyArrayTest {
         MyArray arr = new MyArray(5);
         // MyArray에 "데이터-0"부터 "데이터-4"까지의 문자열을 담는다.
         for(int i = 0; i < 500; i++){
-            arr.append("데이터 - " +i);
+            arr.add("데이터 - " +i);
         }
         // MyArray에 담긴 모든 요소를 출력한다. [데이터 - 0,,,데이터 - 4]
         System.out.println(arr);
         //MY Array의 0번째 데이터 출력
-        System.out.println(arr.getElem(0));
+        System.out.println(arr.get(0));
 
         //MY Array의 3번째 데이터 출력
-        System.out.println(arr.getElem(3));
+        System.out.println(arr.get(3));
 
         //인덱스 2 삭제
-        arr.delete(2);
+        arr.remove(2);
 
         //My arrary 모든 요소 출력
         System.out.println(arr);
 
-        arr.append(2, "데이터 - 5");
+        arr.add(2, "데이터 - 5");
 
         System.out.println(arr);
 
-        arr.append("데이터 - 6");
+        arr.add("데이터 - 6");
 
         System.out.println(arr);
 

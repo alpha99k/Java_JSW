@@ -1,6 +1,8 @@
 package ch02.array;
 
 
+import ch02.list.MyList;
+
 import java.awt.desktop.SystemEventListener;
 import java.util.Arrays;
 
@@ -14,7 +16,7 @@ import java.util.Arrays;
  */
 
 
-public class MyArray {
+public class MyArray implements MyList {
 
     /**
      * 내부적으로 요소를 저장하는 배열을 선언
@@ -49,9 +51,9 @@ public class MyArray {
      * 배열의 마지막 위치에 지정한 elem 를 추가한다.
      * @param elem 배열에 추가할 요소
      */
-    public void append(Object elem){
+    public void add(Object elem){
 
-        append(count, elem);
+        add(count, elem);
     }
 
 
@@ -60,7 +62,7 @@ public class MyArray {
      * @param index 삽입할 index(위치)
      * @param elem 삽입할 요소
      */
-    public void append(int index, Object elem){
+    public void add(int index, Object elem){
 
         //예외처리
         if(index < 0){
@@ -93,7 +95,7 @@ public class MyArray {
      * 지정한 index의 요소를 삭제한다.
      * @param index 삭제할 요소 인덱스
      */
-    public void delete(int index){
+    public void remove(int index){
 
         if(index >= count){
             throw new ArrayIndexOutOfBoundsException(index + " >= " + count);
@@ -113,7 +115,7 @@ public class MyArray {
      * @param index 반환할 데이터의 위치
      * @return 지정한 위치의 데이터
      */
-    public Object getElem(int index){
+    public Object get(int index){
 
         if(index >= count){
             throw new ArrayIndexOutOfBoundsException(index + " >= " + count);
@@ -128,7 +130,7 @@ public class MyArray {
      * 배열에 실제적으로 들어있는 요소의 갯수 출력
      * @return 실질적으로 존재하는 요소의 갯수
      */
-    public Object size(){
+    public int size(){
         return this.count;
     }
 

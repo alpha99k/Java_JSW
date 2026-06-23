@@ -9,7 +9,7 @@ public class MyLinkedListTest {
             MyLinkedList arr = new MyLinkedList();
             // MyArray에 "데이터-0"부터 "데이터-4"까지의 문자열을 담는다.
             for(int i = 0; i < 5; i++){
-                arr.appendTo("데이터 - " +i);
+                arr.add("데이터 - " +i);
             }
             // MyArray에 담긴 모든 요소를 출력한다. [데이터 - 0,,,데이터 - 4]
             System.out.println(arr);
@@ -25,11 +25,11 @@ public class MyLinkedListTest {
             //My arrary 모든 요소 출력
             System.out.println(arr);
 
-            arr.appendTo(2, "데이터 - 5");
+            arr.add(2, "데이터 - 5");
 
             System.out.println(arr);
 
-            arr.appendTo("데이터 - 6");
+            arr.add("데이터 - 6");
 
             System.out.println(arr);
 
