@@ -36,6 +36,10 @@ public class TodoList {
         System.out.println("----------------");
         printTodoList(tomorrowTodoList);
 
+        String str = "String";
+        int n = 5;
+
+        System.out.println(str);
 
 
 
