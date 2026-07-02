@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    /*
+    객체 없이 사용자 정보 저장
+    */
+   let haru = new Object();
+    haru.name = 'haru';
+    haru['age'] = 6;
+    haru.job = 'sleep';
+
+    console.log(haru['name'], haru.age, haru.job); // haru 6 sleep false
+    console.log(typeof haru, haru); // object { name: 'haru', age: 6, job: 'sleep', married: false }
+
+    // 첫번째 user
+    
+
+    // 두번째 user
+    let namu = new Object();
+    namu.name = 'namu';
+    namu['age'] = 9;
+    namu.job = '먹기';
+  
+
+    console.log(namu['name'], namu.age, namu.job); // haru 6 sleep false
+    console.log(typeof namu, namu); 
+
+  </script>
+</head>
+<body>
+  <h1>10-01 객체 없이 사용자 정보 저장</h1>
+</body>
+</html>
